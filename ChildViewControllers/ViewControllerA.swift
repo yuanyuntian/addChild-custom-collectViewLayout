@@ -17,12 +17,15 @@ class ViewControllerA: UIViewController {
         let layout = YXCollectionViewLayout()
         layout.delegate = self
         layout.numberOfColumns = 3
+        
         let v = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         v.backgroundColor = .clear
         v.dataSource = self
         v.delegate = self
         v.backgroundColor = .gray
         v.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        v.register(YXCollectViewHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+        v.register(YXCollectViewHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
 //        v.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 10, right: 0)
         return v
     }()
@@ -82,8 +85,12 @@ class ViewControllerA: UIViewController {
 
 extension ViewControllerA:UICollectionViewDataSource, UICollectionViewDelegate {
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return 30
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -105,11 +112,54 @@ extension ViewControllerA:UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? YXCollectViewHeaderView {
+                headerView.backgroundColor = .red
+                return headerView
+            }
+            
+        }else if kind == UICollectionView.elementKindSectionFooter {
+            if let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footer", for: indexPath) as? YXCollectViewHeaderView {
+                footerView.backgroundColor = .yellow
+                return footerView
+            }
+        }
+        return UICollectionReusableView()
+    }
 }
 
-extension ViewControllerA:YXCollectionViewLayoutDelegate {
+extension ViewControllerA:YXCollectionViewLayoutDelegate{
     
-    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return 100.0//CGFloat(Int.randomIntNumber(lower: 100, upper: 200))
+    func collectionView(_ collectionView: UICollectionView, heightForItemAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(Int.randomIntNumber(lower: 100, upper: 200))
     }
+    
+    func collectionView(_ collectionView:UICollectionView,_ layout:YXCollectionViewLayout, referenceHeightForHeaderInSection section:NSInteger) -> CGFloat {
+        
+//        if section == 0 {
+//            return 0
+//        }else if section == 1{
+//            return 100
+//        }
+//        return 0
+        return CGFloat(Int.randomIntNumber(lower: 50, upper: 100))
+    }
+    
+    func collectionView(_ collectionView:UICollectionView,_ layout:YXCollectionViewLayout, referenceHeightForFooterInSection section:NSInteger) -> CGFloat {
+        return  CGFloat(Int.randomIntNumber(lower: 50, upper: 100))
+    }
+    
+    func columnNumberAtSection(in collectionView: UICollectionView) -> NSInteger {
+        return  3
+    }
+
+    func collectionView(_ collectionView:UICollectionView,_ layout:YXCollectionViewLayout, spacingWithLastSectionForSectionAtIndex section:NSInteger) -> CGFloat {
+        return  CGFloat(Int.randomIntNumber(lower: 50, upper: 100))
+    }
+    
+    func collectionView(_ collectionView:UICollectionView,_ layout:YXCollectionViewLayout, insetForItemAtIndex section:NSInteger) -> CGSize {
+        return CGSize(width: 5, height: 5)
+    }
+
 }
