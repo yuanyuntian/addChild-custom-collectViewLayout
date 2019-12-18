@@ -3,6 +3,6 @@
 
 1.addChildController
 2.collectViewLayout 自定义
-3.添加头部
+3.添加悬浮header
 4.添加尾部
-5.优化变量
+5.优化布局
