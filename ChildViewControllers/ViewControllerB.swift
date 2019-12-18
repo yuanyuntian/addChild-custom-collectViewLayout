@@ -18,9 +18,9 @@ class ViewControllerB: UIViewController {
         return v
     }()
     
-    var presentVC:YXManagerLoginsContainer?
+    weak var presentVC:YXManagerLoginsContainer?
     
-    convenience init(superVC:YXManagerLoginsContainer) {
+    convenience init(superVC:YXManagerLoginsContainer?) {
         self.init()
         self.presentVC = superVC
     }
@@ -37,6 +37,14 @@ class ViewControllerB: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .gray
 
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    deinit {
+        print("deinit")
     }
     
 

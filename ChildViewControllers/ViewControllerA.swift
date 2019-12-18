@@ -80,17 +80,21 @@ class ViewControllerA: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    deinit {
+        print("deinit")
+    }
 
 }
 
 extension ViewControllerA:UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return Int.randomIntNumber(lower: 4, upper: 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

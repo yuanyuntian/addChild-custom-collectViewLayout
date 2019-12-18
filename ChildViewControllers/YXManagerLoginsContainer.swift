@@ -12,6 +12,7 @@ class YXManagerLoginsContainer: UIViewController {
 
     private var state:type?
     
+    
     lazy var VC_A:ViewControllerA = {
         let v = ViewControllerA(superVC: self)
         return v
@@ -21,7 +22,7 @@ class YXManagerLoginsContainer: UIViewController {
         let v = ViewControllerB(superVC: self)
         return v
     }()
-    
+
     lazy var VC_C:ViewControllerC = {
         let v = ViewControllerC(superVC: self)
         return v
@@ -35,14 +36,19 @@ class YXManagerLoginsContainer: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = .white
         self.addChild(VC_A)
         self.addChild(VC_B)
         self.addChild(VC_C)
+        
+
 
         self.view.addSubview(VC_A.view)
         self.currentVC = VC_A
         // Do any additional setup after loading the view.
     }
+    
+    
     
     func transition (to newState: type) {
         
@@ -119,6 +125,15 @@ class YXManagerLoginsContainer: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    deinit {
+        print("deinit")
+    }
 
 }
 
